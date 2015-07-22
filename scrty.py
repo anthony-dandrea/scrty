@@ -3,10 +3,8 @@ from random import randint
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-    a = randint(0,100)
-    b = 40
-    return render_template('hello.html', i=a, j=b)
+def index():
+    return render_template('spa.html')
 
 if __name__ == '__main__':
     app.run()
