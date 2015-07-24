@@ -12,4 +12,4 @@ function cookieValue(key) {
     return (document.cookie.match(regexKey)||[,null])[1];
 }
 
-console.log('loaded');
+// Event handler for

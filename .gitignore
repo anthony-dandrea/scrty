@@ -1,1 +1,5 @@
 env/
+.webassets-cache/
+.DS_Store
+*.pyc
+config.py

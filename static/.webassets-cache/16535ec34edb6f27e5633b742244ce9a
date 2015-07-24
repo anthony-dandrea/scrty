@@ -1,3 +1,0 @@
-Vfunction copyToClipboard(text){window.prompt("Copy to clipboard: Ctrl+C, Enter",text);}\u000afunction setCookie(key,value){document.cookie=key+'='+value+';';}\u000afunction cookieValue(key){var regexKey="^(?:.*;)?"+key+"=([^;]+)(?:.*)?$"\u000aregexKey=new RegExp(regexKey);return(document.cookie.match(regexKey)||[,null])[1];}\u000aconsole.log('loaded');
-p1
-.
