@@ -11,3 +11,5 @@ function cookieValue(key) {
     regexKey = new RegExp(regexKey);
     return (document.cookie.match(regexKey)||[,null])[1];
 }
+
+console.log('loaded');
