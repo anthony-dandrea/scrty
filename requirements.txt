@@ -1,6 +1,7 @@
 Flask
 Jinja2
 Flask-Assets
+flask-bcrypt
 webassets
 jsmin
 cssmin

@@ -19,7 +19,7 @@
   {% block content %}
   {% endblock content %}
   {% block scripts %}
-    <script type="text/javascript" scr="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     {# Compiles all scripts in scr/ to one file in dist #}
     {% assets filters='jsmin', output='scripts/dist/all.min.js', 'scripts/src/*' %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
