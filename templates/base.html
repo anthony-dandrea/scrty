@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <head>
-  {% block head %}
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!-- Use title if it's in the page YAML frontmatter -->
-    <title>scrty</title>
-    <meta name="description" content="Password manager that doesn't use a password">
-    <meta name="keywords" content="Password,Manager,LaunchKey">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css" rel="stylesheet" type="text/css">
-    {% assets filters='compass,scss,cssmin', depends='styles/**/*.scss', output='styles/site.min.css', 'styles/site.scss'%}
-      <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
-    {% endassets %}
-  {% endblock head %}
+    {% block head %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>scrty</title>
+        <meta name="description" content="Password manager that doesn't use a password">
+        <meta name="keywords" content="Password,Manager,LaunchKey">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+        <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        {% assets filters='compass,scss,cssmin', depends='styles/**/*.scss', output='styles/site.min.css', 'styles/site.scss'%}
+            <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+        {% endassets %}
+    {% endblock head %}
 
 </head>
 <body>
-  {% block content %}
-  {% endblock content %}
-  {% block scripts %}
-    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    {# Compiles all scripts in scr/ to one file in dist #}
-    {% assets filters='jsmin', output='scripts/dist/all.min.js', 'scripts/src/*' %}
-      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-  {% endblock scripts %}
+    {% block content %}
+    {% endblock content %}
+    {% block scripts %}
+        <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    {% endblock scripts %}
 </body>
 </html>

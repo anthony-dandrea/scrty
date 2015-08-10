@@ -6,3 +6,5 @@ webassets
 jsmin
 cssmin
 django-htmlmin
+launchkey-python==1.2.7
+launchkey-flask==0.1.0
