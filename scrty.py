@@ -47,6 +47,14 @@ def poll():
     poll_response = launchkey.poll_request()
     return jsonify({'response': poll_response })
 
+@app.route('/remote-logout', methods=['GET'])
+def logout_poll():
+    # Check if user logged out on app
+    poll_response = launchkey.poll_request()
+    if poll_response is False:
+        launchkey.logout()
+    return jsonify({'response': poll_response })
+
 @app.route('/isauthorized', methods=['GET'])
 def is_authorized():
     # Check if the user is authorized
