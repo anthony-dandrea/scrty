@@ -12,9 +12,10 @@ app = Flask(__name__)
 assets = Environment(app)
 bcrypt = Bcrypt(app)
 app.config.from_pyfile('config.py')
+
 # LaunchKey Config
 launchkey = LaunchKeyManager(app)
-launchkey.login_view = "/login"
+launchkey.login_view = '/login'
 
 ###################
 ## Routes
@@ -27,7 +28,7 @@ def index():
     else:
         return html_minify(unicode(render_template('index.html')).encode('utf-8'))
 
-@app.route("/login")
+@app.route('/login')
 def login():
     return html_minify(unicode(render_template('login.html')).encode('utf-8'))
 
@@ -61,30 +62,27 @@ def deauth_user():
     success = launchkey.logout()
     return jsonify({'response': success})
 
-@app.route("/encrypt-password", methods=['POST'])
+@app.route('/encrypt-password', methods=['POST'])
 def encrypt_password():
     """
     Encrypts plain text
-    No validation... yet
-    Does not store anything... yet
-    https://flask-bcrypt.readthedocs.org/en/latest/
+    flask-bcrypt.readthedocs.org
     """
     from jinja2 import utils
     response = dict()
     plain_pass = str(utils.escape(request.form['password']))
     encrypt_pass = bcrypt.generate_password_hash(plain_pass)
-    response["success"] = True
-    response["encrypted_password"] = encrypt_pass
+    response['success'] = True
+    response['encrypted_password'] = encrypt_pass
     return jsonify(response)
 
 ###################
 ## CSRF Protection
-## See: http://flask.pocoo.org/snippets/3/
 ###################
 
 @app.before_request
 def csrf_protect():
-    if request.method == "POST":
+    if request.method == 'POST':
         token = session.pop('_csrf_token', None)
         if not token or token != request.form.get('_csrf_token'):
             abort(403)

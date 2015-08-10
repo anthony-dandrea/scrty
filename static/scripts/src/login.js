@@ -48,7 +48,6 @@ $(function() {
         e.preventDefault();
         var $self = $(this),
         formData  = $self.serialize();
-        console.log(formData);
         $.post('/login', formData, function(data) {
             if (data.response == true) {
                 poll();
