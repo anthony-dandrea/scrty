@@ -1,16 +1,26 @@
 $(function() {
-
     // Allow users to copypasta passworda
     function copyToClipboard(text) {
         window.prompt("Copy to clipboard: Ctrl+C/Cmd+C, Enter", text);
     }
 
-
-    // WIP
     // Calls BE for uncryped password
-    $('[data-get-pass]').on('click', function(e) {
-        e.preventDefault();
-        alert('WIP');
+    $('body').on('init', function() {
+        $('[data-get-pass]').on('click', function(e) {
+            e.preventDefault();
+            var app = $(this).attr('data-app'),
+                password = localStorage[app],
+                csrf = $('[name="_csrf_token"]').val();
+            $.post('/decrypt-password', {'password': password, '_csrf_token': csrf}, function(data) {
+                console.log(data);
+                if (data.success) {
+                    copyToClipboard(data.decrypted_password);
+                } else {
+                    alert('Error: Unable to decrypt password.');
+                }
+            }).fail(function() {
+                alert('Error: Server error.')
+            });
+        });
     });
-
 });
