@@ -6,7 +6,5 @@ $(function() {
         var markup = template;
         markup = markup.replace(/appName/g, idx);
         $('tr').first().after(markup);
-        // Trigger init for table event listeners
-        $('body').trigger('init');
     });
 });

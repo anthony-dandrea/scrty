@@ -6,5 +6,4 @@ Experiments with LaunchKey as a security wall for password consolidation service
 Setup:
  - Ask Anthony for keys in the `config.py` and the `lk_private_key.key` files.
  - Download LaunchKey App and pair your device.
- - Download [ngrok](https://ngrok.com/) (not necessary if you're not testing remote deorbit)
  - Ask Anthony for access to PWW org on [lkey dashboard](https://dashboard.launchkey.com).

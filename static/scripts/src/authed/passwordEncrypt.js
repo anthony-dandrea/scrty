@@ -5,8 +5,6 @@ $(function() {
         var template = $('#passtemplate').html();
         template = template.replace(/appName/g, app);
         $('tr').first().after(template);
-        // Fire init for another table elem
-        $('body').trigger('init');
     }
 
     // Asks backend for password encryption
@@ -23,6 +21,7 @@ $(function() {
                     var password = data.encrypted_password;
                     localStorage.setItem(app, password);
                     addNew(app);
+                    $self.find('input[type=text], input[type=password]').val('');
                 } else {
                     alert('Error: Unable to encrypt and save password.');
                 }
