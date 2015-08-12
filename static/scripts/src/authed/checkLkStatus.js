@@ -1,5 +1,4 @@
 $(function() {
-
     // Check if user has been logged out
     // on LK mobile app
     function checkAuth() {
@@ -18,5 +17,4 @@ $(function() {
         }, 3000);
     }
     checkAuth();
-
 });

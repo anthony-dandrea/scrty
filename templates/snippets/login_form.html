@@ -1,5 +1,5 @@
 <form id="login" action="#" method="POST">
     <input required="required" pattern=".{6,}" title="6 characters minimum" type="text" name="username" placeholder="LaunchKey Username" autofocus="autofocus" autocomplete="off" tabindex="1" />
-    <input id='csrf_token' name='_csrf_token' type='hidden' value="{{ csrf_token() }}">
+    <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
     <button type="submit">Submit</button>
 </form>

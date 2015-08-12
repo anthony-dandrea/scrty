@@ -1,7 +1,6 @@
 from flask import Flask, render_template, jsonify, request, make_response, session, redirect, abort
 from flask.ext.launchkey import LaunchKeyManager, login_required, current_user
 from flask.ext.assets import Environment, Bundle
-from flask.ext.bcrypt import Bcrypt
 import jinja2, config, random, string
 from htmlmin.minify import html_minify
 
@@ -10,7 +9,6 @@ from htmlmin.minify import html_minify
 ###################
 app = Flask(__name__)
 assets = Environment(app)
-bcrypt = Bcrypt(app)
 app.config.from_pyfile('config.py')
 
 # LaunchKey Config
@@ -74,15 +72,43 @@ def deauth_user():
 def encrypt_password():
     """
     Encrypts plain text
-    flask-bcrypt.readthedocs.org
+    http://stackoverflow.com/questions/12524994/encrypt-decrypt-using-pycrypto-aes-256
     """
+    import base64
+    from Crypto.Cipher import AES
+    from Crypto import Random
     from jinja2 import utils
     response = dict()
     plain_pass = str(utils.escape(request.form['password']))
-    encrypt_pass = bcrypt.generate_password_hash(plain_pass)
+    BS = 16
+    pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
+    raw = pad(plain_pass)
+    iv = Random.new().read( AES.block_size )
+    cipher = AES.new( app.config['SECRET_KEY'], AES.MODE_CBC, iv )
     response['success'] = True
-    response['encrypted_password'] = encrypt_pass
+    response['encrypted_password'] = base64.b64encode( iv + cipher.encrypt( raw ) )
     return jsonify(response)
+
+@app.route('/decrypt-password', methods=['POST'])
+def decrypt_password():
+    """
+    Decrypts encrypted string
+    http://stackoverflow.com/questions/12524994/encrypt-decrypt-using-pycrypto-aes-256
+    """
+    import base64
+    from Crypto.Cipher import AES
+    from Crypto import Random
+    from jinja2 import utils
+    response = dict()
+    encrypted_password = str(utils.escape(request.form['password']))
+    unpad = lambda s : s[:-ord(s[len(s)-1:])]
+    enc = base64.b64decode(encrypted_password)
+    iv = enc[:16]
+    cipher = AES.new(app.config['SECRET_KEY'], AES.MODE_CBC, iv )
+    response['success'] = True
+    response['decrypted_password'] = unpad(cipher.decrypt( enc[16:] ))
+    return jsonify(response)
+
 
 ###################
 ## CSRF Protection
@@ -91,7 +117,7 @@ def encrypt_password():
 @app.before_request
 def csrf_protect():
     if request.method == 'POST':
-        token = session.pop('_csrf_token', None)
+        token = session['_csrf_token']
         if not token or token != request.form.get('_csrf_token'):
             abort(403)
 

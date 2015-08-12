@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-	<h1>FYR</h1>
-	<hr>
-	{% include 'snippets/password_encrypt.html' %}
-	<hr>
+    <h1>FYR</h1>
+    <hr>
+    {% include 'snippets/password_encrypt.html' %}
+    <hr>
+    {% include 'snippets/password_list.html' %}
+    <hr>
     {% include 'snippets/logout_button.html' %}
 {% endblock content %}
 {% block scripts %}
     {{super()}}
-    {% assets filters='jsmin', output='scripts/dist/script.min.js',
-    'scripts/src/logout.js', 'scripts/src/passwordEncrypt.js',
-    'scripts/src/checkLkStatus.js', 'scripts/src/script.js' %}
+    {% assets filters='jsmin', output='scripts/dist/script.min.js', 'scripts/src/authed/*.js' %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
 {% endblock scripts %}

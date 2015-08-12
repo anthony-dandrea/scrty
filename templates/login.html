@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-	{% include 'snippets/login_form.html' %}
+    {% include 'snippets/login_form.html' %}
 {% endblock content %}
 {% block scripts %}
     {{super()}}
-    {% assets filters='jsmin', output='scripts/dist/login.min.js', 'scripts/src/login.js' %}
+    {% assets filters='jsmin', output='scripts/dist/login.min.js', 'scripts/src/login/*.js' %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
 {% endblock scripts %}
